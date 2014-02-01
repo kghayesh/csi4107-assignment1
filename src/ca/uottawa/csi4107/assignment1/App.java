@@ -4,20 +4,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.apache.commons.cli.*;
-import org.apache.lucene.analysis.Analyzer;
+import org.apache.commons.cli.BasicParser;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -28,7 +30,6 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
 
 public class App {
@@ -37,12 +38,29 @@ public class App {
 	StandardAnalyzer analyzer;
 	IndexSearcher searcher;
 	
+	
+	
 	public App()
 	{
 		analyzer = new StandardAnalyzer(Version.LUCENE_46);
 	}
 	
+	
+	
+	
+	public Directory getIndex() {
+		return index;
+	}
 
+
+	public StandardAnalyzer getAnalyzer() {
+		return analyzer;
+	}
+	
+
+	
+	
+	
 	public static void main(String[] args) throws ParseException, IOException
 	{
 		App app = new App();
@@ -192,7 +210,7 @@ public class App {
 		}
 	}
 	
-	private void initIndex()
+	public void initIndex()
 	{
 		
 		try {
